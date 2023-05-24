@@ -95,7 +95,8 @@ def show_bbox_only(coco, anns, show_label_bbox=True, is_filling=False):
         ax.text(
             bbox_x,
             bbox_y,
-            '%s' % (coco.loadCats(ann['category_id'])[0]['name']),
+            # '%s' % (coco.loadCats(ann['category_id'])[0]['name']),
+            '%s' % (','.join([str(int(bbox_x)), str(int(bbox_y)), str(int(bbox_w)), str(int(bbox_h))])),
             color='white',
             bbox=label_bbox)
 
