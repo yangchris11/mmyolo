@@ -2,12 +2,12 @@ _base_ = ['../_base_/default_runtime.py', '../yolox/yolox_p5_tta.py']
 
 # ========================Frequently modified parameters======================
 # -----data related-----
-data_root = '/media/sda1/AI_city_2023/'  # Root path of data
+data_root = ''  # Root path of data
 # path of train annotation file
-train_ann_file = 'annotations/train_all_val_all_sr_20_10_img_77154.json'
+train_ann_file = '/work/u9853001/datasets/MMPTrack/train/annotations/train_all_val_all_sr_15_0.json'
 train_data_prefix = data_root  # Prefix of train image path
 # path of val annotation file
-val_ann_file = 'annotations/train_all_val_all_sr_800_0_img_1778.json'
+val_ann_file = '/work/u9853001/datasets/MMPTrack/train/annotations/result.json'
 val_data_prefix = data_root  # Prefix of train image path
 
 num_classes = 1  # Number of classes for classification
@@ -43,8 +43,9 @@ val_num_workers = 2
 
 # -----model related-----
 # ========================modified parameters======================
-deepen_factor = 1.0
-widen_factor = 1.0
+deepen_factor = 1.33
+widen_factor = 1.25
+load_from = 'https://download.openmmlab.com/mmyolo/v0/yolox/yolox_l_fast__8xb8-300e_coco/yolox_l_fast_8xb8-300e_coco_20230213_160715-c731eb1c.pth'
 # ========================modified parameters======================
 norm_cfg = dict(type='BN', momentum=0.03, eps=0.001)
 # generate new random resize shape interval
@@ -63,7 +64,7 @@ mixup_ratio_range = (0.8, 1.6)
 # Save model checkpoint and validation intervals
 save_epoch_intervals = 10
 # The maximum checkpoints to keep.
-max_keep_ckpts = 3
+max_keep_ckpts = 5
 
 ema_momentum = 0.0001
 
@@ -329,3 +330,5 @@ train_cfg = dict(
 auto_scale_lr = dict(base_batch_size=8 * train_batch_size_per_gpu)
 val_cfg = dict(type='ValLoop')
 test_cfg = dict(type='TestLoop')
+
+visualizer = dict(vis_backends=[dict(type='LocalVisBackend'),dict(type='TensorboardVisBackend')])
